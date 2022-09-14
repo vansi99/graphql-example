@@ -1,0 +1,58 @@
+type News {
+    _id: ID
+    title: String
+    thumbUrl: String
+    description: String
+    content: String
+    readNumber: Int
+    categories: [Category]
+    publisher: User
+}
+
+type Query {
+    getNews(limit: Int, offset: Int, sort: String, search: String): NewsResponse
+    getDetailNews(_id: String): NewsDetailResponse
+    getPublisherNews: NewsResponse
+}
+
+type Mutation {
+    createNews(inputObject: InputCreateNews!): NewsDetailResponse
+    updateNews(_id: String, inputObject: InputUpdateNews!): UpdateNewsResponse
+    deleteNews(_id: String): DeleteResponse
+}
+
+input InputCreateNews {
+    title: String!,
+    thumbUrl: String!,
+    description: String!,
+    content: String!,
+    categories: [String],
+}
+
+input InputUpdateNews {
+    title: String,
+    thumbUrl: String,
+    description: String,
+    content: String,
+    categories: [String],
+}
+
+type NewsResponse {
+    data: [News]
+    error: String
+}
+
+type NewsDetailResponse {
+    data: News
+    error: String
+}
+
+type DeleteResponse {
+    data: String
+    error: String
+}
+
+type UpdateNewsResponse {
+    data: String
+    error: String
+}

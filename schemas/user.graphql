@@ -1,0 +1,69 @@
+type User {
+    _id: ID
+    username: String
+    email: String
+    roles: [String]
+}
+
+type Query {
+    getPublisher: UsersResponse
+}
+
+type Mutation {
+    addUser(inputObject: InputAddUser!): UserResponse
+}
+
+input InputAddUser {
+    username: String!
+    email: String!
+    password: String!
+    roles: [String!]
+}
+
+type UsersResponse {
+    data: [User]
+    error: String
+}
+
+type UserResponse {
+    data: User
+    error: String
+}
+
+type Query {
+    getToken(email: String, password: String): TokenResponse
+}
+
+type TokenResponse {
+    data: String
+    error: String
+}
+
+type Category {
+    _id: ID
+    name: String
+    description: String
+}
+
+type Query {
+    getCategories: CategoriesResponse
+}
+
+type Mutation {
+    createCategory(inputObject: InputCreateCategory!): CreateCategoryResponse
+}
+
+input InputCreateCategory {
+    name: String!
+    description: String!
+}
+
+type CategoriesResponse {
+    data: [Category]
+    error: String
+}
+
+type CreateCategoryResponse {
+    data: Category
+    error: String
+}

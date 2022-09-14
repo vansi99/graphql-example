@@ -1,0 +1,28 @@
+type Category {
+    _id: ID
+    name: String
+    description: String
+}
+
+type Query {
+    getCategories: CategoriesResponse
+}
+
+type Mutation {
+    createCategory(inputObject: InputCreateCategory!): CreateCategoryResponse
+}
+
+input InputCreateCategory {
+    name: String!
+    description: String!
+}
+
+type CategoriesResponse {
+    data: [Category]
+    error: String
+}
+
+type CreateCategoryResponse {
+    data: Category
+    error: String
+}
