@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc -p . && cp -r schemas dist/schemas",
-    "start": "yarn build && node dist/index.js",
+    "start": "node dist/index.js",
     "dev": "nodemon --exec ts-node ./index.ts",
     "test": "jest --config ./jest.config.js --coverage --watchAll --detectOpenHandles --testPathPattern=test/"
   },
