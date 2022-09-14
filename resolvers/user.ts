@@ -13,7 +13,7 @@ const resolver = {
                 const users = await User.find({ roles: 'publisher' }).lean()
                 return responseUtil.success(users)
             } catch (error: any) {
-                return responseUtil.error({message: error.message}, 'Query getAllUser')
+                return responseUtil.error({ message: error.message }, 'Query getAllUser')
             }
         },
         getToken: async (_: any, param: { email: string, password: string }) => {
@@ -22,8 +22,8 @@ const resolver = {
 
                 if (user) {
                     return responseUtil.success(
-                        jwt.sign({ _id: user._id, email: user.email, username: user.username, roles: user.roles }, 
-                        <string>process.env.SECRET_KEY)
+                        jwt.sign({ _id: user._id, email: user.email, username: user.username, roles: user.roles },
+                            <string>process.env.SECRET_KEY)
                     )
                 } else {
                     throw Error('Email or password is wrong')
@@ -32,13 +32,13 @@ const resolver = {
                 return responseUtil.error({ message: error.message }, 'Login')
             }
         }
-      },
+    },
     Mutation: {
         addUser: async (
-                _: any,
-                args: { inputObject: { username: string, password: string, email: string, roles: string[] }},
-                ctx: Context,
-                info: GraphQLResolveInfo
+            _: any,
+            args: { inputObject: { username: string, password: string, email: string, roles: string[] } },
+            ctx: Context,
+            info: GraphQLResolveInfo
         ) => {
             try {
                 if (!ctx._id) {

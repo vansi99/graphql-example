@@ -9,29 +9,29 @@ import db from './models/db'
 import jwtVerifyToken from './utils/jwt'
 
 async function startApolloServer(schema: any) {
-  const port = process.env.PORT || 4000
-  const app = express()
-  const httpServer = http.createServer(app)
+    const port = process.env.PORT || 4000
+    const app = express()
+    const httpServer = http.createServer(app)
 
-  const server = new ApolloServer({
-    schema,
-    plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
-    context: async ({ req }) => {
-      return await jwtVerifyToken(req);
-    },
-  }) as any
+    const server = new ApolloServer({
+        schema,
+        plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+        context: async ({ req }) => {
+            return await jwtVerifyToken(req);
+        },
+    }) as any
 
-  await server.start()
+    await server.start()
 
-  server.applyMiddleware({ app })
+    server.applyMiddleware({ app })
 
-  db.connect()
+    db.connect()
 
-  await new Promise<void>((resolve) =>
-    httpServer.listen({ port }, resolve)
-  )
+    await new Promise<void>((resolve) =>
+        httpServer.listen({ port }, resolve)
+    )
 
-  console.log(`Server ready at http://localhost:${port}${server.graphqlPath}`)
+    console.log(`Server ready at http://localhost:${port}${server.graphqlPath}`)
 }
 
 startApolloServer(schema)
